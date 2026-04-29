@@ -41,7 +41,7 @@ sudo echo'server {
     location ~ /\.(?!well-known).* {
         deny all;
     }
-}'> /etc/nginx/site-available/${WEBSITE}.conf;
+}'> /etc/nginx/sites-available/${WEBSITE}.conf;
 
 mysql -u ${DBUSER} -p${DBPASS} << EOF
 create database ${DBNAMEDEFAULT};
