@@ -52,7 +52,7 @@ EOF
 sudo mkdir -p /var/www/${WEBSITE}/public_html && sudo chown -R $USER:www-data /var/www/${WEBSITE};
 cd /var/www/${WEBSITE}/public_html/
 ${SETUPCOMMAND};
-srestart nginx php8.2-fpm
+sudo systemctl restart nginx php8.3-fpm
 sudo chown -R $USER:www-data /var/www/${WEBSITE};
 sudo chmod -R g+w storage;
 sed -i "s/APP_NAME=Laravel/APP_NAME=${WEBSITE}/g" /var/www/${WEBSITE}/public_html/.env;
@@ -81,24 +81,29 @@ Route::get('/', function () {
 });
 
 */
- use Illuminate\Support\Facades\DB; Route::get('/', function () { $visited = DB::select('select * from places 
-  where visited = ?', [1]); $togo = DB::select('select * from places where visited = ?', [0]); return 
-  view('${WEBSITE}', ['visited' => $visited, 'togo' => $togo ] );
-});"> /var/www/${WEBSITE}/public_html/routes/web.php;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Route;
+
+Route::get('/', function () {
+    $visited = DB::select('select * from places where visited = ?', [1]);
+    $togo = DB::select('select * from places where visited = ?', [0]);
+    return view('${WEBSITE}', ['visited' => $visited, 'togo' => $togo]);
+});
+"> /var/www/${WEBSITE}/public_html/routes/web.php;
 echo '<html>
 <head>
 	<title>Travel List</title>
 </head>
 <body>
 	<h1>My Travel Bucket List</h1>
-	<h2>Places I'd Like to Visit</h2>
+	<h2>Places I would Like to Visit</h2>
 	<ul>
 	  @foreach ($togo as $newplace)
 		<li>{{ $newplace->name }}</li>
 	  @endforeach
 	</ul>
 
-	<h2>Places I've Already Been To</h2>
+	<h2>Places I have Already Been To</h2>
 	<ul>
           @foreach ($visited as $place)
                 <li>{{ $place->name }}</li>
@@ -106,7 +111,7 @@ echo '<html>
 	</ul>
 </body>
 </html>' > /var/www/${WEBSITE}/public_html/resources/views/${WEBSITE}.blade.php;
-php artisan session:table
+
 php artisan
 php artisan migrate
 
