@@ -3,9 +3,9 @@ WEBSITEEXT=luba;
 DBNAMEDEFAULT=hatmalik;
 DBUSER=laravel;
 DBPASS=laravel;
-ADMINUSER=rafiqulranu;
-ADMINPASS=rti@2026;
-ADMINEMAIL=rafiqul_rti@yahoo.com;
+ADMINUSER=admin;
+ADMINPASS=admin123;
+ADMINEMAIL=admin@yahoo.com;
 SETUPCOMMAND='composer create-project --prefer-dist laravel/laravel .';
 
 sudo echo'server {
